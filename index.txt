@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>摩擦力模拟</title>
+    <style>
+        #car-container {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        #car {
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            background-color: #3498db;
+            transition: left 2s ease-in-out;
+        }
+
+        #apply-force-btn {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #friction-data {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="car-container">
+        <div id="car"></div>
+    </div>
+    <button id="apply-force-btn" onclick="applyForce()">施加力</button>
+    <div id="friction-data">摩擦力数据：</div>
+
+    <script>
+        var frictionData = [];
+
+        function applyForce() {
+            var car = document.getElementById('car');
+            var carContainer = document.getElementById('car-container');
+            
+            // 模拟施加力后，小车向右移动
+            car.style.left = '350px';
+
+            // 模拟摩擦力，通过 setTimeout 延迟触发
+            setTimeout(() => {
+                // 小车回到起始位置
+                car.style.left = '0';
+                
+                // 记录摩擦力数据
+                var frictionForce = calculateFrictionForce();
+                frictionData.push(frictionForce);
+                
+                // 更新显示的摩擦力数据
+                updateFrictionData();
+            }, 2000);
+        }
+
+        function calculateFrictionForce() {
+            // 这里可以模拟计算摩擦力的过程，这里简化为随机生成一个值
+            return Math.random() * 10;
+        }
+
+        function updateFrictionData() {
+            var frictionDataElement = document.getElementById('friction-data');
+            frictionDataElement.textContent = '摩擦力数据：' + frictionData.join(', ');
+        }
+    </script>
+</body>
+</html>
